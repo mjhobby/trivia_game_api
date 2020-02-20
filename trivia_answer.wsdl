@@ -1,0 +1,52 @@
+<definitions name="AnswerService"
+    targetNamespace="C:/Users/13305/Projects/trivia_questions_api/trivia_answer.wsdl"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="C:/Users/13305/Projects/trivia_questions_api/trivia_answer.wsdl">
+
+    <message name="SubmitAnswerRequest">
+        <part name="answer" type="xsd:string" />
+        <part name="username" type="xsd:string" />
+        <part name="questionSecretKey" type="xsd:string" />
+    </message>
+
+    <message name="SubmitAnswerResponse">
+        <part name="result" type="xsd:string" />
+        <part name="username" type="xsd:string" />
+        <part name="userScore" type="xsd:integer" />
+        <part name="pctCorrect" type="xsd:string" /> 
+    </message>
+
+    <portType name="Answer_PortType">
+        <operation name="submitAnswer">
+            <input message="tns:SubmitAnswerRequest" />
+            <output message="tns:SubmitAnswerResponse" />
+        </operation>
+    </portType>
+
+    <binding name="Answer_Binding" type="tns:Answer_PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="submitAnswer">
+            <soap:operation soapAction="submitAnswer" />
+            <input>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    use="encoded" />
+            </input>
+
+            <output>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    use="encoded" />
+            </output>
+        </operation>
+    </binding>
+
+    <service name="Answer_Service">
+        <documentation>WSDL File for AnswerService</documentation>
+        <port binding="tns:Answer_Binding" name="Answer_Port">
+            <soap:address location="http://localhost:5000/answer" />
+        </port>
+    </service>
+</definitions> 
